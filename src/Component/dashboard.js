@@ -112,11 +112,11 @@ export default function Dashboard() {
   }, [transactionData]);
 
   return (
-    <BaseApp>
+    <BaseApp className="dashboard">
       <h2 className="fw-bold pt-2 ps-4">Dashboard</h2>
       <div className="container-fluid">
         <div className="row ">
-          <div className="col-8 ">
+          <div className=" col-12 col-md-8 ">
             <div className="d-flex mb-3 mt-2">
               <PieChart
                 series={[
@@ -163,7 +163,7 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
-          <div className="col-4">
+          <div className="col-12 col-md-4">
             <h5>Recent History</h5>
             {recentHistory &&
               recentHistory.map((data, index) => {

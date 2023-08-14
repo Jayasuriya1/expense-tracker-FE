@@ -116,3 +116,15 @@
   justify-content: space-between;
   margin-top: 10px;
 }
+
+@media screen and (max-width:600px) {
+  *{
+    overflow-y: scroll;
+  }
+  .side-bar{
+    width: 90px;
+  }
+  .sidebar-button-container>p{
+    display: none;
+  }
+}

@@ -105,18 +105,17 @@ function Login() {
         <h3 className="pt-2 fw-light">Expense Tracker</h3>
       </div>
       <div className="row d-flex justify-content-center align-items-center">
-        <div className="col-6  mt-5">
-          {/* <img className='' src='\planning.png'></img> */}
+        <div className="col-12 col-md-6  mt-5">
           <h1 className="text-center fw-lighter">Track Your Expenses,</h1>
           <h1 className="text-center fw-light"> Achieve Financial Freedom!</h1>
           <span className="d-flex flex-column text-center">
-            <p className="m-0">For Demo:</p>
-            <p className="m-0">Email: ravi@gmail.com</p>
-            <p className="m-0">password: user@123</p>
+            <p className="m-0 fw-bold">For Demo:</p>
+            <p className="m-0 fw-light">Email: suriya@gmail.com</p>
+            <p className="m-0 fw-light">password: user@123</p>
           </span>
         </div>
 
-        <div className="col-6 mt-1 d-flex align-items-center justify-content-center">
+        <div className="col-12 col-md-6 mt-1 d-flex align-items-center justify-content-center">
           <div className="p-4 card p-4" style={{ width: "300px" }}>
             <h3 className="text-center mb-4">Login</h3>
             <form onSubmit={handleSubmit} className="pt-3">

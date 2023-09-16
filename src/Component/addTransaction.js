@@ -9,6 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
+import Button from "@mui/material/Button";
 
 import { useNavigate } from "react-router-dom";
 import { AppState } from "../context/AppProvider";
@@ -28,7 +29,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function AddTransaction() {
-  const { transactionData, setTransactionData } = AppState();
+  const { setTransactionData } = AppState();
   const navigate = useNavigate();
   const userId = localStorage.getItem("etUserId");
   const [loading, setLoading] = useState(false);
@@ -189,9 +190,9 @@ export default function AddTransaction() {
                   ""
                 )}
               </Form.Group>
-              <button type="submit" className="create-btn">
+              <Button className="w-100" type="submit" variant="contained">
                 Create
-              </button>
+              </Button>
             </Col>
           </Row>
         </Container>

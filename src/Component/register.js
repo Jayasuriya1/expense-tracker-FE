@@ -13,18 +13,23 @@ import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 
 const userSchemaValidation = yup.object({
+  name: yup
+    .string()
+    .required("Name is required")
+    .min(3, "Must be 3 characters or more"),
   email: yup.string().email().required("Please enter a valid email address"),
   password: yup
     .string()
-    .required("Password is Rquired")
+    .required("Password is required")
     .min(7, "Password cannot be less than 7 characters"),
 });
 
-function Login() {
+export default function Register() {
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,17 +42,16 @@ function Login() {
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } =
     useFormik({
       initialValues: {
+        name: "",
         email: "",
         password: "",
       },
       validationSchema: userSchemaValidation,
-      onSubmit: async (data) => {
+      onSubmit: async (data, { resetForm }) => {
         try {
           setLoading(true);
-          await localStorage.removeItem("etUserId");
-          await localStorage.removeItem("etUserToken");
           const response = await fetch(
-            "https://expense-tracker-shl5.onrender.com/user/login",
+            "https://expense-tracker-shl5.onrender.com/user/signup",
             {
               method: "POST",
               body: JSON.stringify(data),
@@ -57,20 +61,17 @@ function Login() {
             }
           );
           const result = await response.json();
-          console.log("loginResult", result);
-          if (
-            result.success == false &&
-            result.message ==
-              "Please Verify The Email. Verification Link Send To Your Mail Successfully"
-          ) {
+          console.log("verification link", result);
+          if (result.success == true) {
             handleClickOpen();
+            navigate("/login");
+          }
+
+          if (result.success == false) {
+            toast.error(result.message);
           }
           if (result.success == true) {
-            localStorage.setItem("etUserToken", result.token);
-            localStorage.setItem("etUserId", result.id);
-            navigate("/dashboard");
-          } else {
-            toast.error(result.message);
+            resetForm();
           }
           setLoading(false);
         } catch (error) {
@@ -104,17 +105,34 @@ function Login() {
         <div className="col-12 col-md-6  mt-5">
           <h1 className="text-center fw-lighter">Track Your Expenses,</h1>
           <h1 className="text-center fw-light"> Achieve Financial Freedom!</h1>
-          <span className="d-flex flex-column text-center">
-            <p className="m-0 fw-bold">For Demo:</p>
-            <p className="m-0 fw-light">Email: suriya@gmail.com</p>
-            <p className="m-0 fw-light">password: user@123</p>
-          </span>
         </div>
 
         <div className="col-12 col-md-6 mt-1 d-flex align-items-center justify-content-center">
           <div className="p-4 card p-4" style={{ width: "300px" }}>
-            <h3 className="text-center mb-4">Login</h3>
+            <h3 className="text-center mb-4">Register</h3>
             <form onSubmit={handleSubmit} className="pt-3">
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Name
+                </label>
+                <input
+                  value={values.name}
+                  name="name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  placeholder="Enter Name"
+                  className="form-control"
+                  id="email"
+                />
+                {touched.name && errors.name ? (
+                  <p style={{ color: "crimson", margin: "0px" }}>
+                    {errors.name}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
+
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Email
@@ -125,16 +143,19 @@ function Login() {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
-                  placeholder="Enter email"
+                  placeholder="Enter Email"
                   className="form-control"
                   id="email"
                 />
+                {touched.email && errors.email ? (
+                  <p style={{ color: "crimson", margin: "0px" }}>
+                    {errors.email}
+                  </p>
+                ) : (
+                  ""
+                )}
               </div>
-              {touched.email && errors.email ? (
-                <p style={{ color: "crimson" }}>{errors.email}</p>
-              ) : (
-                ""
-              )}
+
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">
                   Password
@@ -149,29 +170,27 @@ function Login() {
                   className="form-control"
                   id="password"
                 />
+                {touched.password && errors.password ? (
+                  <p style={{ color: "crimson", margin: "0px" }}>
+                    {errors.password}
+                  </p>
+                ) : (
+                  ""
+                )}
               </div>
-              {touched.password && errors.password ? (
-                <p style={{ color: "crimson" }}>{errors.password}</p>
-              ) : (
-                ""
-              )}
+
               <button type="submit" className="btn btn-warning btn-block">
                 Next
               </button>
             </form>
             <div className="mt-3 text-center">
-              <a href="#forgot-password" className="text-muted">
-                Forgot Password?
-              </a>
-            </div>
-            <div className="mt-3 text-center">
-              <span>Don't have an account? </span>
+              <span>Already have an account? </span>
               <a
                 style={{ cursor: "pointer" }}
-                onClick={() => navigate("/register")}
+                onClick={() => navigate("/login")}
                 className="text-warning"
               >
-                Sign Up
+                Log In
               </a>
             </div>
           </div>
@@ -200,5 +219,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;

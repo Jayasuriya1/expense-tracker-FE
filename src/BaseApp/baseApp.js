@@ -1,5 +1,4 @@
 import React from "react";
-import BookIcon from "@mui/icons-material/Book";
 import "boxicons";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
@@ -45,6 +44,13 @@ export default function BaseApp({ children }) {
           >
             <box-icon name="transfer" size="md"></box-icon>
             <p>Add Transaction</p>
+          </div>
+          <div
+            className="sidebar-button-container"
+            onClick={() => navigate("/edit/transaction")}
+          >
+            <box-icon type='solid' size="md" name='edit'></box-icon>
+            <p>Edit Transaction</p>
           </div>
           <div className="sidebar-button-container" onClick={logOut}>
             <box-icon name="log-out" size="md"></box-icon>

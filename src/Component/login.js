@@ -111,7 +111,7 @@ function Login() {
           </span>
         </div>
 
-        <div className="col-12 col-md-6 mt-1 d-flex align-items-center justify-content-center">
+        <div className="col-12 col-md-6 mt-3 d-flex align-items-center justify-content-center">
           <div className="p-4 card p-4" style={{ width: "300px" }}>
             <h3 className="text-center mb-4">Login</h3>
             <form onSubmit={handleSubmit} className="pt-3">
@@ -159,11 +159,11 @@ function Login() {
                 Next
               </button>
             </form>
-            <div className="mt-3 text-center">
+            {/* <div className="mt-3 text-center">
               <a href="#forgot-password" className="text-muted">
                 Forgot Password?
               </a>
-            </div>
+            </div> */}
             <div className="mt-3 text-center">
               <span>Don't have an account? </span>
               <a
